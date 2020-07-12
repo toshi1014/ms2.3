@@ -1,0 +1,38 @@
+{% extends "class_info/base.html" %}
+
+{% block content %}
+    <h2><a href="{% url 'ranking' facul=facul_argument.1 %}">ranking</a></h2>
+    <h2>{{ facul_argument.2 }}</h2>
+    <form  action="{% url 'search' facul=facul_argument.1 %}" method="get">
+          clas<input type="text" name="clas">
+          prof<input type="text" name="prof">
+        <button type="submit">search</button>
+    </form>
+
+
+    {% for clas in classes %}
+
+        <!-
+            clas.0
+                0 pure_class, 1 prof, 2 semes, 3 class(0+1+2)
+        ->
+
+        <a href="{% url 'class' facul=facul_argument.1 clas=clas.0.3 %}">{{ clas.0.0 }}</a>
+        <a href="{% url 'top_search' prof=clas.0.1 %}">{{ clas.0.1 }}</a>{{ clas.0.2 }}<br>
+        {{ clas.1.0 }}      <!- ease ->
+        /{{ clas.2.0 }}     <!- aplus ->
+        /{{ clas.3.0 }}     <!- fulfil ->
+        /{{ clas.4.0 }}     <!- test ->
+        /{{ clas.5.0 }}     <!- exam ->
+        /{{ clas.6.0 }}     <!- cheat ->
+        /{{ clas.7.0 }}     <!- attend ->
+        /{{ clas.8.0 }}     <!- presen ->
+        /{{ clas.9.0 }}     <!- assig ->
+        /{{ clas.10.0 }}    <!- syllabus ->
+        /{{ clas.11.0 }}    <!- gender ->
+        /{{ clas.12.0 }}    <!- grade ->
+        <br>
+        -----------------------------------
+        <br>
+    {% endfor %}
+{% endblock %}

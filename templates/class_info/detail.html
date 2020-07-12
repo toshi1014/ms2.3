@@ -1,0 +1,18 @@
+{% extends "class_info/base.html" %}
+
+{% block content %}
+    <h2>detail</h2>
+        <h2>{{ detail.clas }}</h2>
+        semes:{{ detail.semes }}<br>prof:{{ detail.prof }}<br>
+        {% if not detail.ease == "None" %}      <!- form2 からの投稿は非表示 ->
+            ease:{{ detail.ease }}<br>
+            aplus:{{ detail.aplus }}<br>fulfil:{{ detail.fulfil }}<br>test:{{ detail.test }}<br>
+            exam:{{ detail.exam }}<br>cheat:{{ detail.cheat }}<br>attend:{{ detail.attend }}<br>
+            presen:{{ detail.presen }}<br>assig:{{ detail.assig }}<br>
+        {% endif %}
+        {% if not detail.comme == "None" %}     <!- form1 からの投稿は非表示 ->
+            comme:{{ detail.comme }}<br>
+        {% endif %}
+        contributor:{{ detail.contributor }}<br>gender:{{ user.0 }}<br>grade:{{ user.1 }}<br>
+        date:{{ detail.date }}
+{% endblock %}

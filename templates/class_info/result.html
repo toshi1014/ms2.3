@@ -1,0 +1,56 @@
+{% extends "class_info/base.html" %}
+
+{% block content %}
+    <h2>{{ facul_argument.2 }}</h2>
+    <h2>result
+
+        <!-
+        rasult.query
+            0 class, 1 prof
+        result.count
+            10 hit
+        ->
+
+        {{ result.query.0 }}/{{ result.query.1 }}/{{ result.count }} hit</h2>
+
+
+    {% if not result.classes %}     <!- if 全学部0件 ->
+        <h3>Not Hit</h3>
+    {% endif %}
+
+
+    {% for class in result.classes %}   <!- for class in 検索結果全体 ->
+
+        <!-
+            class.0.
+                0 pure_class, 1 prof, 2 semes, 3 class(0+1+2)
+        ->
+
+        <h3><a href="{% url 'class' facul=facul_argument.1 clas=class.0.3 %}">{{ class.0.0 }}</a>
+            <a href="{% url 'top_search' prof=class.0.1 %}">{{ class.0.1 }}</a> {{ class.0.2 }}<br></h3>
+
+        {{ class.1.0 }}     <!- ease ->
+        /{{ class.2.0 }}    <!- aplus ->
+        /{{ class.3.0 }}    <!- fulfil ->
+        /{{ class.4.0 }}    <!- test ->
+        /{{ class.5.0 }}    <!- exam ->
+        /{{ class.6.0 }}    <!- cheat ->
+        /{{ class.7.0}}     <!- attend ->
+        /{{ class.8.0 }}    <!- presen ->
+        /{{ class.9.0 }}    <!- assig ->
+        /{{ class.10.0 }}   <!- syllabus ->
+        /{{ class.11.0 }}   <!- gender ->
+        /{{ class.12.0 }}   <!- grade ->
+
+    {% endfor %}
+
+    <h2>Wanna Crete New ?</h2>
+    <form method="POST">{% csrf_token %}
+        clas: {{ result.form.clas }}<br>sesems: {{ result.form.semes }}<br>prof : {{ result.form.prof }}<br>
+        ease:{{ result.form.ease }}<br>aplus:{{ result.form.aplus }}<br>fulfil:{{ result.form.fulfil }}<br>
+        test:{{ result.form.test }}<br>exam:{{ result.form.exam }}<br>cheat:{{ result.form.cheat }}<br>
+        attend:{{ result.form.attend }}<br>presen:{{ result.form.presen }}<br>
+        assig:{{ result.form.assig }}<br>comme:{{ result.form.comme }}<br>
+        {{ result.form.contributor.as_hidden }}{{ result.form.like.as_hidden }}{{ result.form.date.as_hidden }}
+        <button type="submit">Post</button></form>
+{% endblock %}

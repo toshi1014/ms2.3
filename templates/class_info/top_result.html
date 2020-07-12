@@ -1,0 +1,50 @@
+{% extends "class_info/base.html" %}
+
+{% block content %}
+    <h2>result {{ res.query }}  {{ res.counter }} hit</h2>
+
+
+    <!-
+        res.results.
+            0       info[0.0 sum, 1. facul_argument]
+            1.0.0   classes[0.0 pure_class, 0.1 prof, 0.2 semes, 0.0.3 class]
+            1.0.1   [ease]
+            1.0.2   [aplus]
+            1.0.3   [fulfil]    ...
+    ->
+
+
+{% for results in  res.results %}
+    {% if not results.0.0.0 == 0 %}
+        <h3>{{ results.0.1.2 }} {{ results.0.0.0 }} Hit</h3>
+
+        {% for result in  results.1 %}
+            <h3><a href="{% url 'class' facul=results.0.1.1 clas=result.0.0.3 %}">{{ result.0.0.0 }}</a>
+                <a href="{% url 'top_search' prof=result.0.0.1 %}">{{ result.0.0.1 }}</a>
+                {{ result.0.0.2 }}</h3>
+
+            {{ result.0.1.0 }}     <!- ease ->
+            /{{ result.0.2.0 }}    <!- aplus ->
+            /{{ result.0.3.0 }}    <!- fulfil ->
+            /{{ result.0.4.0 }}    <!- test ->
+            /{{ result.0.5.0 }}    <!- exam ->
+            /{{ result.0.6.0 }}    <!- cheat ->
+            /{{ result.0.7.0 }}    <!- attend ->
+            /{{ result.0.8.0 }}    <!- presen ->
+            /{{ result.0.9.0 }}    <!- assig ->
+            /{{ result.0.10.0 }}    <!- syllabus ->
+            /{{ result.0.11.0 }}   <!- gender ->
+            /{{ result.0.12.0 }}   <!- grade ->
+            <br>----------------------
+
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+
+
+    {% if not res.counter %}
+        <h2>No Hit</h2>
+    {% endif %}
+
+
+{% endblock %}

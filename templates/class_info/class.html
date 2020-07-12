@@ -1,0 +1,81 @@
+{% extends "class_info/base.html" %}
+
+{% block content %}
+
+    <!-
+    class_data.cps.
+        0 class, 1 pure_class, 2 prof, 3 semes
+    ->
+
+    <h2><a href="{% url 'list' facul=facul_argument.1 %}">{{ facul_argument.2 }}</a></h2>
+    <h2>{{ class_data.cps.1 }}/<a href="{% url 'top_search' prof=class_data.cps.2 %}">
+        {{ class_data.cps.2 }}</a>/{{ class_data.cps.3 }}</h2>
+
+
+        {{ class_data.info.0 }}     <!- ease ->
+        /{{ class_data.info.1 }}    <!- aplus ->
+        /{{ class_data.info.2 }}    <!- fulfil ->
+        /{{ class_data.info.3 }}    <!- test ->
+        /{{ class_data.info.4 }}    <!- exam ->
+        /{{ class_data.info.5 }}    <!- cheat ->
+        /{{ class_data.info.6 }}    <!- attend ->
+        /{{ class_data.info.7 }}    <!- presen ->
+        /{{ class_data.info.8 }}    <!- assig ->
+        /{{ class_data.info.9 }}    <!- syllabus ->
+        /{{ class_data.info.10 }}   <!- gender ->
+        /{{ class_data.info.11 }}   <!- grade ->
+
+    <h2>Data</h2>
+    <form method="POST">
+            {% csrf_token %}
+        {{ form1.clas.as_hidden }}
+        {{ form1.semes.as_hidden }}
+        {{ form1.prof.as_hidden }}
+        ease:{{ form1.ease }}<br>aplus:{{ form1.aplus }}<br>fulfil:{{ form1.fulfil }}<br>
+        test:{{ form1.test }}<br>exam:{{ form1.exam }}<br>cheat:{{ form1.cheat }}<br>
+        attend:{{ form1.attend }}<br>presen:{{ form1.presen }}<br>
+        assig:{{ form1.assig }}<br>{{ form1.comme.as_hidden }}<br>
+        {{ form1.contributor.as_hidden }}{{ form1.like.as_hidden }}{{ form1.date.as_hidden }}
+        <button type="submit" name="form1" >Post</button></form><br>
+            <h2>-------------------------------------------------------------</h2>
+
+
+    {% for post in posts %}
+
+        <!-
+        post
+            0 sign-like( 0 or 1 ), 1 pk, 2 contributor, 3 comment, 4 sum_like
+        ->
+
+        {% if not post.3 == "None" %}          <!- form1 からの投稿は非表示 ->
+            <div><a href="{% url 'add_like' facul=facul_argument.1 pk=post.1 sign=post.0 %}">
+                {% if post.0 == 0 %}
+                    ♡
+                {% else %}
+                    ♥
+                {% endif %}
+            </a>
+                {% if not post.2 == "unknown" %}    <!- unknown で comment_list に飛ばないように ->
+                    <a href="{% url 'comment_list' name=post.2 %}">{{ post.2 }}</a>
+                {% else %}
+                    {{ post.2 }}
+                {% endif %}
+                <a href="{% url 'detail' facul=facul_argument.1 clas=class_data.cps.0 pk=post.1 %}">{{ post.3 }}</a> / {{ post.4 }} like</div><br>
+        {% endif %}
+    {% endfor %}
+
+
+    <br><h3><a href="{% url 'list' facul=facul_argument.1 %}">back</a></h3>
+
+    <h2>Comme</h2>
+    <form method="POST" >{% csrf_token %}
+        {{ form2.clas.as_hidden }}{{ form2.semes.as_hidden }}
+        {{ form2.prof.as_hidden }}{{ form2.ease.as_hidden }}
+        {{ form2.aplus.as_hidden }}{{ form2.fulfil.as_hidden }}
+        {{ form2.test.as_hidden }}{{ form2.exam.as_hidden }}
+        {{ form2.cheat.as_hidden }}{{ form2.attend.as_hidden }}
+        {{ form2.presen.as_hidden }}{{ form2.assig.as_hidden }}
+        {{ form2.comme }}{{ form2.contributor.as_hidden }}
+        {{ form2.like.as_hidden }}{{ form2.date.as_hidden }}
+        <button type="submit" name="form2">Post</button></form>
+{% endblock %}

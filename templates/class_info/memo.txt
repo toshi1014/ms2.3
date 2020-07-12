@@ -1,0 +1,7 @@
+facul_argument.
+ex. sk
+
+0   SK (db)
+1   sk (str)
+2   政経 (str)
+3   SKForm (form)

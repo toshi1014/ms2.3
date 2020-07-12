@@ -1,0 +1,54 @@
+※ 最初に全学部に入る必要 →_list.csv 作成
+※username unknown を最初に作る　→　ログインしてないunknownと被り
+
+
+
+
+
+
+
+¡Read Me!
+
+いいね　画面遷移しない方法　Ajax　←　ページの上に毎回戻ってうざい
+POSTからForm　選択肢とかボタンの作り方分かんないからよろしく
+
+
+
+
+変更
+mysite
+urls, views
+app shimmeringfuseda
+templates/shimmeringfuseda
+
+pip install django-maintenance-mode
+setting変更, l43,44,55,129
+templates直下 503.html　追加
+
+
+html
+・prof search を top search化
+    _list, _search 引数消す
+    top_serach 引数 prof 追加
+    科目から分割された先生の検索　{% top_search prof=[prof] %}
+    detail
+class result list 学年性別情報　追加
+class 投稿者名から飛べるように
+
+・contributor field 追加
+_class {{ post.contributor }} で表示  l11, l13
+result l31追加
+
+・お気に入り
+_class l7~12 add_fav_class 追加
+
+
+result, class     date, like.as_hidden   追加
+class ,detail  form 分けにより
+
+
+
+
+
+
+・test.py
